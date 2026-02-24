@@ -16,11 +16,20 @@
   --border: #dee2e6;
   --input: #dee2e6;
   --ring: #1e3a5f;
+
+  /* Legacy safety tokens (kept for backward compatibility on sub-pages) */
   --safety-yellow: #ffc107;
   --safety-black: #1a1a1a;
   --safety-blue: #1e3a5f;
   --safety-orange: #ff6b35;
   --safety-green: #28a745;
+
+  /* NEW Gaion-inspired tokens */
+  --safety-neon-orange: #FF6600;
+  --safety-hivis-yellow: #FFD100;
+  --safety-charcoal: #1E1E1E;
+  --safety-dark-bg: #111111;
+  --safety-light-gray: #F5F5F5;
 }
 
 @theme inline {
@@ -39,10 +48,22 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Legacy */
   --color-safety-yellow: var(--safety-yellow);
   --color-safety-black: var(--safety-black);
   --color-safety-blue: var(--safety-blue);
-  --font-sans: var(--font-geist-sans);
+  --color-safety-orange: var(--safety-orange);
+  --color-safety-green: var(--safety-green);
+
+  /* NEW Gaion tokens */
+  --color-safety-neon-orange: var(--safety-neon-orange);
+  --color-safety-hivis-yellow: var(--safety-hivis-yellow);
+  --color-safety-charcoal: var(--safety-charcoal);
+  --color-safety-dark-bg: var(--safety-dark-bg);
+  --color-safety-light-gray: var(--safety-light-gray);
+
+  --font-sans: var(--font-barlow), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
@@ -93,4 +114,31 @@ html {
 .card-hover:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Gaion countdown flip animation */
+@keyframes countdown-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.countdown-box {
+  animation: countdown-pulse 1s ease-in-out infinite;
+}
+
+/* Gaion product card hover overlay */
+.gaion-product-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+}
+
+.group:hover .gaion-product-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Newsletter input focus glow */
+.newsletter-input:focus {
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.3);
 }

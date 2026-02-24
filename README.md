@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SafetyPro — Industrial Safety Equipment & PPE Supplier
+
+> Premium e-commerce website for safety equipment built with Next.js 16, Tailwind CSS v4, and MongoDB.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router, TypeScript)
+- **Styling:** Tailwind CSS v4 with custom safety color tokens
+- **Database:** MongoDB
+- **State:** Zustand
+- **UI:** Radix UI primitives + Lucide React icons
+- **Font:** Barlow (via `next/font/google`)
+- **Hosting:** Netlify
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Copy env and configure
+cp .env.example .env.local
+# Edit .env.local with your MongoDB URI, email settings, etc.
+
+# 3. Run dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Netlify Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is configured for Netlify with `netlify.toml` and `@netlify/plugin-nextjs`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Setup
+1. Push code to GitHub
+2. Connect repo in Netlify dashboard
+3. Set environment variables in Netlify:
+   - `MONGODB_URI` — MongoDB Atlas connection string
+   - `MONGODB_DB_NAME` — Database name
+   - `ADMIN_SECRET` — Admin panel secret
+   - `NEXT_PUBLIC_PHONE_NUMBER` — Displayed phone
+   - `NEXT_PUBLIC_WHATSAPP_NUMBER` — WhatsApp number
+   - `NEXT_PUBLIC_CONTACT_EMAIL` — Contact email
+   - `NEXT_PUBLIC_BASE_URL` — Your Netlify domain URL
+   - SMTP vars for email notifications (optional)
+4. Deploy triggers automatically on push to `main`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/              # Next.js App Router pages & API routes
+│   ├── api/          # Backend API (products, categories, hero, brands, inquiries)
+│   ├── admin/        # Admin panel
+│   ├── about/        # About page
+│   ├── contact/      # Contact page
+│   ├── category/     # Category listing pages
+│   ├── search/       # Search results
+│   ├── brands/       # Brand pages
+│   ├── bulk-quote/   # Bulk quote form
+│   ├── industries/   # Industries page
+│   ├── layout.tsx    # Root layout (Header + Footer + QuoteModal)
+│   ├── page.tsx      # Homepage
+│   └── globals.css   # Design tokens & utilities
+├── components/       # React components
+│   ├── header.tsx    # 3-tier Gaion-style header
+│   ├── footer.tsx    # Newsletter + 4-column footer
+│   ├── hero-slider.tsx
+│   ├── category-quicklinks.tsx
+│   ├── deals-of-the-day.tsx
+│   ├── value-props.tsx
+│   ├── tabbed-products.tsx
+│   ├── product-card.tsx
+│   └── ui/           # Radix UI primitives
+├── lib/              # DB, email, utils
+├── store/            # Zustand stores
+└── types/            # TypeScript types
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Private — All rights reserved.
