@@ -1,33 +1,32 @@
 import { MongoClient, Db } from "mongodb";
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
-}
-
-const uri = process.env.MONGODB_URI;
 const options = {};
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+let clientPromise: Promise<MongoClient> | null = null;
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
-if (process.env.NODE_ENV === "development") {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    global._mongoClientPromise = client.connect();
+function getClientPromise(): Promise<MongoClient> {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
   }
-  clientPromise = global._mongoClientPromise;
-} else {
-  client = new MongoClient(uri, options);
+  if (process.env.NODE_ENV === "development" && global._mongoClientPromise) {
+    return global._mongoClientPromise;
+  }
+  if (clientPromise) return clientPromise;
+  const client = new MongoClient(uri, options);
   clientPromise = client.connect();
+  if (process.env.NODE_ENV === "development") {
+    global._mongoClientPromise = clientPromise;
+  }
+  return clientPromise;
 }
 
 export async function getDb(): Promise<Db> {
-  const c = await clientPromise;
+  const c = await getClientPromise();
   return c.db(process.env.MONGODB_DB_NAME || "safety_equipment");
 }
 
-export default clientPromise;
