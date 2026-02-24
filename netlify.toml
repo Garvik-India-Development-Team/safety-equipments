@@ -1,23 +1,16 @@
+# Netlify configuration for Next.js SSR deployment
+# The @netlify/plugin-nextjs handles build output, publish dir, and routing automatically.
+
 [build]
   command = "npm run build"
-  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
-  NEXT_USE_NETLIFY_EDGE = "true"
 
-# Next.js on Netlify uses the @netlify/plugin-nextjs automatically
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Redirect rules for SPA fallback
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-  conditions = {Role = ["admin"]}
-
-# Headers for security and caching
+# Security headers
 [[headers]]
   for = "/*"
   [headers.values]
@@ -26,6 +19,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+# Cache static assets aggressively
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
