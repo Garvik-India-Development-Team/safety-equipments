@@ -17,9 +17,9 @@ import {
  * ═══════════════════════════════════════════════════════════
  */
 
-const PHONE = process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 98765 43210";
-const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "sales@safetypro.com";
-const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210";
+const PHONE = process.env.NEXT_PUBLIC_PHONE_NUMBER || "011-23215050 / 011-43517483";
+const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "safetyexpertssales@gmail.com";
+const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919811048483";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -47,7 +47,7 @@ export function Footer() {
                 <span className="text-safety-neon-orange">safety</span>
               </h3>
               <p className="text-sm text-gray-400">
-                Get the latest news and offers from SafetyPro.
+                Get the latest news and offers from SAFETY EXPERTS.
               </p>
             </div>
             <form
@@ -85,13 +85,15 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: About */}
           <div>
-            <Link href="/" className="inline-block mb-5">
-              <span className="font-black text-2xl text-white">
-                SAFETY<span className="text-safety-neon-orange">PRO</span>
-              </span>
+            <Link href="/" className="inline-block mb-5 bg-white p-2 rounded">
+              <img
+                src="/assets/logo.jpeg"
+                alt="Safety Experts Industrial Safety Equipment Supplier Delhi"
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed mb-5">
-              Your trusted partner for industrial safety equipment and PPE
+              SAFETY EXPERTS (A Unit of Shiva Industrial Corporation). Your trusted partner for industrial safety equipment and PPE
               solutions. Quality certified products for maximum protection.
             </p>
             <div className="flex gap-3">
@@ -138,7 +140,7 @@ export function Footer() {
                 { href: "/about", label: "About Us" },
                 { href: "/contact", label: "Contact Us" },
                 { href: "/bulk-quote", label: "Bulk Quotation" },
-                { href: "/category/ppe", label: "All Categories" },
+                { href: "/products", label: "All Categories" },
                 { href: "/brands", label: "Our Brands" },
                 { href: "/industries", label: "Industries" },
               ].map((link) => (
@@ -190,8 +192,8 @@ export function Footer() {
               <li className="flex items-start gap-3 text-gray-400">
                 <MapPin className="h-5 w-5 text-safety-neon-orange flex-shrink-0 mt-0.5" />
                 <span>
-                  {/* TODO: Replace with your actual address */}
-                  Serving Industries Nationwide, India
+                  <strong>Office:</strong> S.C.O : 4614-15, Gali Shahtara, Ajmeri Gate, Delhi – 110006<br />
+                  <strong>Works:</strong> NJ-93 Sector-3, Bawana Industrial Area, New Delhi – 110039
                 </span>
               </li>
               <li>
@@ -239,7 +241,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500">
-              © {new Date().getFullYear()} SafetyPro. All rights reserved.
+              © {new Date().getFullYear()} SAFETY EXPERTS. All rights reserved.
             </p>
 
             {/* Payment Method Icons (placeholder SVGs) */}

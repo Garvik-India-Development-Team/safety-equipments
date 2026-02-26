@@ -19,9 +19,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const PHONE = process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 98765 43210";
-const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "sales@safetypro.com";
-const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210";
+const PHONE = process.env.NEXT_PUBLIC_PHONE_NUMBER || "011-23215050 / 011-43517483";
+const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "safetyexpertssales@gmail.com";
+const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919811048483";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -112,11 +112,20 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="mt-8 p-6 bg-gray-50 rounded-xl">
-                <h3 className="font-semibold text-gray-900 mb-2">Business Hours</h3>
-                <p className="text-gray-600 text-sm">
-                  Monday - Saturday: 9:00 AM - 6:00 PM<br />
-                  Sunday: Closed
-                </p>
+                <h3 className="font-semibold text-gray-900 mb-2">Location</h3>
+                <div className="w-full h-64 rounded-lg overflow-hidden border border-gray-200">
+                  {/* Embedded Google Map pointing to Delhi Ajmeri Gate Area */}
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.711822453526!2d77.214416!3d28.644184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd26f7a68585%3A0x6b772027db91bd0!2sAjmeri%20Gate%2C%20New%20Delhi%2C%20Delhi%20110006!5e0!3m2!1sen!2sin!4v1715873204983!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={true}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Ajmeri Gate Location"
+                  ></iframe>
+                </div>
               </div>
             </div>
 
@@ -135,51 +144,51 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              <div>
-                <Label htmlFor="name">Name *</Label>
-                <Input id="name" {...register("name")} className="mt-1" />
-                {errors.name && (
-                  <p className="text-xs text-destructive mt-1">{errors.name.message}</p>
-                )}
-              </div>
-              <div>
-                <Label htmlFor="company">Company *</Label>
-                <Input id="company" {...register("company")} className="mt-1" />
-                {errors.company && (
-                  <p className="text-xs text-destructive mt-1">{errors.company.message}</p>
-                )}
-              </div>
-              <div>
-                <Label htmlFor="email">Email *</Label>
-                <Input id="email" type="email" {...register("email")} className="mt-1" />
-                {errors.email && (
-                  <p className="text-xs text-destructive mt-1">{errors.email.message}</p>
-                )}
-              </div>
-              <div>
-                <Label htmlFor="phone">Phone *</Label>
-                <Input id="phone" {...register("phone")} className="mt-1" />
-                {errors.phone && (
-                  <p className="text-xs text-destructive mt-1">{errors.phone.message}</p>
-                )}
-              </div>
-              <div>
-                <Label htmlFor="message">Message *</Label>
-                <textarea
-                  id="message"
-                  {...register("message")}
-                  className="mt-1 flex min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
-                />
-                {errors.message && (
-                  <p className="text-xs text-destructive mt-1">{errors.message.message}</p>
-                )}
-              </div>
+                  <div>
+                    <Label htmlFor="name">Name *</Label>
+                    <Input id="name" {...register("name")} className="mt-1" />
+                    {errors.name && (
+                      <p className="text-xs text-destructive mt-1">{errors.name.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <Label htmlFor="company">Company *</Label>
+                    <Input id="company" {...register("company")} className="mt-1" />
+                    {errors.company && (
+                      <p className="text-xs text-destructive mt-1">{errors.company.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input id="email" type="email" {...register("email")} className="mt-1" />
+                    {errors.email && (
+                      <p className="text-xs text-destructive mt-1">{errors.email.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Phone *</Label>
+                    <Input id="phone" {...register("phone")} className="mt-1" />
+                    {errors.phone && (
+                      <p className="text-xs text-destructive mt-1">{errors.phone.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <Label htmlFor="message">Message *</Label>
+                    <textarea
+                      id="message"
+                      {...register("message")}
+                      className="mt-1 flex min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                    />
+                    {errors.message && (
+                      <p className="text-xs text-destructive mt-1">{errors.message.message}</p>
+                    )}
+                  </div>
                   {status === "error" && (
                     <p className="text-sm text-red-600 bg-red-50 p-3 rounded-lg">Something went wrong. Please try again.</p>
                   )}
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-safety-yellow hover:bg-safety-yellow/90 text-safety-black font-semibold" 
+                  <Button
+                    type="submit"
+                    className="w-full bg-safety-yellow hover:bg-safety-yellow/90 text-safety-black font-semibold"
                     disabled={status === "loading"}
                   >
                     {status === "loading" ? "Sending…" : "Send Message"}

@@ -19,18 +19,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210";
-const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 98765 43210";
-const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "sales@safetypro.com";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919811048483";
+const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 9811048483";
+const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "safetyexpertssales@gmail.com";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
-  { href: "/category/ppe", label: "Shop" },
-  { href: "/category/ppe", label: "Products" },
-  { href: "/category/ppe", label: "Catalog" },
-  { href: "/brands", label: "Brands" },
-  { href: "/industries", label: "Industries" },
+  { href: "/products", label: "Products" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -76,7 +72,7 @@ export function Header() {
                 <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
               </span>
               <span className="text-white/40">|</span>
-              <span className="text-gray-300">Welcome to SafetyPro Store!</span>
+              <span className="text-gray-300">Welcome to Safety Experts!</span>
             </div>
             <div className="flex items-center gap-6">
               <a
@@ -109,13 +105,12 @@ export function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between gap-6">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-1 shrink-0 group">
-              <span className="font-black text-3xl tracking-tight text-safety-charcoal group-hover:text-safety-neon-orange transition-colors">
-                SAFETY
-              </span>
-              <span className="font-black text-3xl tracking-tight text-safety-neon-orange">
-                PRO
-              </span>
+            <Link href="/" className="flex items-center shrink-0">
+              <img
+                src="/assets/logo.jpeg"
+                alt="Safety Experts Industrial Safety Equipment Supplier Delhi"
+                className="h-16 w-auto"
+              />
             </Link>
 
             {/* Search Bar with Category Dropdown */}
@@ -280,9 +275,11 @@ export function Header() {
           >
             {/* Mobile Header */}
             <div className="flex items-center justify-between p-4 bg-safety-charcoal">
-              <span className="font-black text-xl text-white">
-                SAFETY<span className="text-safety-neon-orange">PRO</span>
-              </span>
+              <img
+                src="/assets/logo.jpeg"
+                alt="Safety Experts Industrial Safety Equipment Supplier Delhi"
+                className="h-10 w-auto bg-white p-1 rounded"
+              />
               <button onClick={() => setMobileMenuOpen(false)} className="text-white">
                 <X className="h-6 w-6" />
               </button>

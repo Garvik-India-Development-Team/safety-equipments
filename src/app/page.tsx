@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Shield, Award, Clock, Truck } from "lucide-react";
 import Image from "next/image";
+import { PartnersSection } from "@/components/partners-section";
 
 export default function HomePage() {
   return (
@@ -187,6 +188,9 @@ export default function HomePage() {
             </Link>
           </div>
         </section>
+
+        {/* Partners Section */}
+        <PartnersSection />
       </main>
     </div>
   );

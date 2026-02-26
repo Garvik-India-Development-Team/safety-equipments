@@ -14,12 +14,12 @@ const barlow = Barlow({
 
 export const metadata: Metadata = {
   title: {
-    default: "SafetyPro | Industrial Safety Equipment & PPE Supplier",
-    template: "%s | SafetyPro",
+    default: "Safety Experts | Industrial Safety Equipment Supplier Delhi",
+    template: "%s | Safety Experts",
   },
   description:
-    "B2B supplier of industrial safety equipment and PPE. Request a quote for hard hats, gloves, respirators, fall protection, and more. ISI, CE, ANSI certified.",
-  keywords: ["safety equipment", "PPE", "industrial safety", "hard hats", "safety gloves", "quote"],
+    "Supplier & authorised dealer of PPE kits, safety helmets, industrial gloves, fire safety equipment & fall protection systems in Delhi NCR.",
+  keywords: ["safety equipment", "PPE", "industrial safety", "hard hats", "safety gloves", "quote", "Delhi OEM", "safety experts"],
   openGraph: {
     type: "website",
   },

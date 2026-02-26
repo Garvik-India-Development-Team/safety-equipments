@@ -1,81 +1,78 @@
 import { getDb } from "./db";
 import { ObjectId } from "mongodb";
 
-export const PPE_CATEGORY_TREE = [
+export const CATEGORY_TREE = [
   {
-    name: "Head Protection",
-    slug: "head-protection",
+    name: "Personal Protective Equipment (PPE)",
+    slug: "ppe",
     children: [
-      { name: "Hard Hats Class A", slug: "hard-hats-class-a" },
-      { name: "Hard Hats Class B", slug: "hard-hats-class-b" },
-      { name: "Hard Hats Class C", slug: "hard-hats-class-c" },
+      { name: "Head Protection", slug: "head-protection" },
+      { name: "Eye Protection", slug: "eye-protection" },
+      { name: "Hearing Protection", slug: "hearing-protection" },
+      { name: "Respiratory Protection", slug: "respiratory-protection" },
+      { name: "Hand Protection", slug: "hand-protection" },
     ],
   },
   {
-    name: "Eye & Face Protection",
-    slug: "eye-face-protection",
+    name: "Safety Clothing",
+    slug: "safety-clothing",
     children: [
-      { name: "Safety Glasses", slug: "safety-glasses" },
-      { name: "Safety Goggles", slug: "safety-goggles" },
-      { name: "Face Shields", slug: "face-shields" },
+      { name: "Reflective Jackets", slug: "reflective-jackets" },
+      { name: "Coveralls", slug: "coveralls" },
+      { name: "Chemical Resistant Suits", slug: "chemical-resistant-suits" },
+      { name: "Fire Retardant Clothing", slug: "fire-retardant-clothing" },
     ],
   },
   {
-    name: "Hearing Protection",
-    slug: "hearing-protection",
+    name: "Foot Protection",
+    slug: "foot-protection",
     children: [
-      { name: "Earplugs", slug: "earplugs" },
-      { name: "Earmuffs", slug: "earmuffs" },
+      { name: "Safety Shoes", slug: "safety-shoes" },
+      { name: "Gumboots", slug: "gumboots" },
     ],
   },
   {
-    name: "Respiratory Protection",
-    slug: "respiratory-protection",
+    name: "Fall Protection",
+    slug: "fall-protection",
     children: [
-      { name: "Dust Masks", slug: "dust-masks" },
-      { name: "N95 Masks", slug: "n95-masks" },
-      { name: "Half Face Respirators", slug: "half-face-respirators" },
-      { name: "Full Face Respirators", slug: "full-face-respirators" },
-    ],
-  },
-  {
-    name: "Hand & Body Protection",
-    slug: "hand-body-protection",
-    children: [
-      { name: "Chemical Resistant Gloves", slug: "chemical-resistant-gloves" },
-      { name: "Cut Resistant Gloves", slug: "cut-resistant-gloves" },
-      { name: "Steel Toe Safety Shoes", slug: "steel-toe-safety-shoes" },
-      { name: "Fire Resistant Clothing", slug: "fire-resistant-clothing" },
-      { name: "Reflective Safety Vests", slug: "reflective-safety-vests" },
-    ],
-  },
-  {
-    name: "Fall Protection Equipment",
-    slug: "fall-protection-equipment",
-    children: [
-      { name: "Full Body Harness", slug: "full-body-harness" },
+      { name: "Safety Harness", slug: "safety-harness" },
+      { name: "Lanyards", slug: "lanyards" },
       { name: "Lifelines", slug: "lifelines" },
-      { name: "Shock Absorbing Lanyards", slug: "shock-absorbing-lanyards" },
-      { name: "Anchors", slug: "anchors" },
+      { name: "Rope Ladder", slug: "rope-ladder" },
     ],
   },
   {
-    name: "Fire & Chemical Safety",
-    slug: "fire-chemical-safety",
+    name: "Fire Safety",
+    slug: "fire-safety",
     children: [
       { name: "Fire Extinguishers", slug: "fire-extinguishers" },
       { name: "Fire Blankets", slug: "fire-blankets" },
-      { name: "Spill Containment Kits", slug: "spill-containment-kits" },
     ],
   },
   {
-    name: "Workplace Safety Signage & Barriers",
-    slug: "workplace-safety-signage-barriers",
+    name: "Road Safety & Traffic",
+    slug: "road-safety-traffic",
     children: [
-      { name: "Safety Sign Boards", slug: "safety-sign-boards" },
-      { name: "Traffic Cones", slug: "traffic-cones" },
-      { name: "Barricade Tapes", slug: "barricade-tapes" },
-      { name: "Floor Marking Tapes", slug: "floor-marking-tapes" },
+      { name: "Safety Cones", slug: "safety-cones" },
+      { name: "Barricades", slug: "barricades" },
+      { name: "Reflective Tape", slug: "reflective-tape" },
+    ],
+  },
+  {
+    name: "Lockout Tagout",
+    slug: "lockout-tagout",
+    children: [
+      { name: "Lockout Kits", slug: "lockout-kits" },
+      { name: "Safety Padlocks", slug: "safety-padlocks" },
+    ],
+  },
+  {
+    name: "Industrial & Security Products",
+    slug: "industrial-security-products",
+    children: [
+      { name: "Safety Signages", slug: "safety-signages" },
+      { name: "Warning Boards", slug: "warning-boards" },
+      { name: "First Aid Kits", slug: "first-aid-kits" },
     ],
   },
 ];
@@ -83,25 +80,17 @@ export const PPE_CATEGORY_TREE = [
 export async function seedCategories() {
   const db = await getDb();
   const coll = db.collection("categories");
-  const rootId = new ObjectId();
-  await coll.insertOne({
-    _id: rootId,
-    name: "Personal Protective Equipment (PPE)",
-    slug: "ppe",
-    parentId: null,
-    order: 0,
-    level: 0,
-  });
+  await coll.deleteMany({}); // clear existing
   let order = 0;
-  for (const main of PPE_CATEGORY_TREE) {
+  for (const main of CATEGORY_TREE) {
     const mainId = new ObjectId();
     await coll.insertOne({
       _id: mainId,
       name: main.name,
       slug: main.slug,
-      parentId: rootId,
+      parentId: null,
       order: order++,
-      level: 1,
+      level: 0,
     });
     let subOrder = 0;
     for (const sub of main.children) {
@@ -111,7 +100,7 @@ export async function seedCategories() {
         slug: sub.slug,
         parentId: mainId,
         order: subOrder++,
-        level: 2,
+        level: 1,
       });
     }
   }
