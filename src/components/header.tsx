@@ -25,12 +25,12 @@ const EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "sales@safetypro.com";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
   { href: "/category/ppe", label: "Shop" },
-  { href: "/category/ppe", label: "The Gear" },
-  { href: "/category/ppe", label: "Protect Wear" },
+  { href: "/category/ppe", label: "Products" },
+  { href: "/category/ppe", label: "Catalog" },
   { href: "/brands", label: "Brands" },
   { href: "/industries", label: "Industries" },
-  { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
 ];
 

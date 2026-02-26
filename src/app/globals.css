@@ -63,6 +63,13 @@
   --color-safety-dark-bg: var(--safety-dark-bg);
   --color-safety-light-gray: var(--safety-light-gray);
 
+  /* Stitch Design tokens */
+  --color-primary: #FFD700;
+  --color-primary-dark: #e6c200;
+  --color-background-light: #f8f8f5;
+  --color-background-dark: #1a1a1a;
+  --color-surface-dark: #2c2616;
+
   --font-sans: var(--font-barlow), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
@@ -118,8 +125,15 @@ html {
 
 /* Gaion countdown flip animation */
 @keyframes countdown-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .countdown-box {
