@@ -36,8 +36,8 @@ export function ProductCard({
   const catSlug = product.categorySlug || categorySlug;
   const subSlug = product.subcategorySlug || subcategorySlug;
   const href = subSlug
-    ? `/category/${catSlug}/${subSlug}/${product.slug}`
-    : `/category/${catSlug}/${product.slug}`;
+    ? `/product/${catSlug}/${product.slug}`
+    : `/product/${catSlug}/${product.slug}`;
 
   const availabilityText =
     product.availability === "made_to_order" ? "Made to Order" : "In Stock";

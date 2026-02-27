@@ -3,59 +3,65 @@ import { ObjectId } from "mongodb";
 
 export const CATEGORY_TREE = [
   {
-    name: "Personal Protective Equipment (PPE)",
+    name: "Personal Protective Equipment",
     slug: "ppe",
     children: [
       { name: "Head Protection", slug: "head-protection" },
-      { name: "Eye Protection", slug: "eye-protection" },
+      { name: "Eye & Face Protection", slug: "eye-protection" },
       { name: "Hearing Protection", slug: "hearing-protection" },
       { name: "Respiratory Protection", slug: "respiratory-protection" },
       { name: "Hand Protection", slug: "hand-protection" },
     ],
   },
   {
-    name: "Safety Clothing",
-    slug: "safety-clothing",
+    name: "Safety Clothing & Footwear",
+    slug: "safety-clothing-footwear",
     children: [
-      { name: "Reflective Jackets", slug: "reflective-jackets" },
-      { name: "Coveralls", slug: "coveralls" },
+      { name: "High-Visibility Clothing", slug: "high-visibility-clothing" },
       { name: "Chemical Resistant Suits", slug: "chemical-resistant-suits" },
-      { name: "Fire Retardant Clothing", slug: "fire-retardant-clothing" },
-    ],
-  },
-  {
-    name: "Foot Protection",
-    slug: "foot-protection",
-    children: [
       { name: "Safety Shoes", slug: "safety-shoes" },
       { name: "Gumboots", slug: "gumboots" },
+      { name: "Coveralls", slug: "coveralls" },
     ],
   },
   {
     name: "Fall Protection",
     slug: "fall-protection",
     children: [
-      { name: "Safety Harness", slug: "safety-harness" },
+      { name: "Safety Harnesses", slug: "safety-harnesses" },
       { name: "Lanyards", slug: "lanyards" },
+      { name: "Anchor Points", slug: "anchor-points" },
+      { name: "Safety Nets", slug: "safety-nets" },
       { name: "Lifelines", slug: "lifelines" },
-      { name: "Rope Ladder", slug: "rope-ladder" },
     ],
   },
   {
-    name: "Fire Safety",
-    slug: "fire-safety",
+    name: "Fire & Chemical Safety",
+    slug: "fire-chemical-safety",
     children: [
       { name: "Fire Extinguishers", slug: "fire-extinguishers" },
       { name: "Fire Blankets", slug: "fire-blankets" },
+      { name: "Chemical Spill Kits", slug: "chemical-spill-kits" },
+      { name: "Eye Wash Stations", slug: "eye-wash-stations" },
     ],
   },
   {
-    name: "Road Safety & Traffic",
-    slug: "road-safety-traffic",
+    name: "Emergency Response & First Aid",
+    slug: "emergency-response-first-aid",
     children: [
-      { name: "Safety Cones", slug: "safety-cones" },
+      { name: "First Aid Kits", slug: "first-aid-kits" },
+      { name: "Stretchers", slug: "stretchers" },
+      { name: "Rescue Equipment", slug: "rescue-equipment" },
+    ],
+  },
+  {
+    name: "Workplace Safety Signage & Barriers",
+    slug: "workplace-safety-signage-barriers",
+    children: [
+      { name: "Safety Signs", slug: "safety-signs" },
+      { name: "Traffic Cones", slug: "traffic-cones" },
       { name: "Barricades", slug: "barricades" },
-      { name: "Reflective Tape", slug: "reflective-tape" },
+      { name: "Warning Boards", slug: "warning-boards" },
     ],
   },
   {
@@ -67,12 +73,20 @@ export const CATEGORY_TREE = [
     ],
   },
   {
-    name: "Industrial & Security Products",
-    slug: "industrial-security-products",
+    name: "Gas Detection & Confined Space",
+    slug: "gas-detection-confined-space",
     children: [
-      { name: "Safety Signages", slug: "safety-signages" },
-      { name: "Warning Boards", slug: "warning-boards" },
-      { name: "First Aid Kits", slug: "first-aid-kits" },
+      { name: "Portable Gas Detectors", slug: "portable-gas-detectors" },
+      { name: "Ventilation Systems", slug: "ventilation-systems" },
+    ],
+  },
+  {
+    name: "Electrical Safety Equipment",
+    slug: "electrical-safety-equipment",
+    children: [
+      { name: "Insulated Tools", slug: "insulated-tools" },
+      { name: "Voltage Detectors", slug: "voltage-detectors" },
+      { name: "Arc Flash Gear", slug: "arc-flash-gear" },
     ],
   },
 ];
