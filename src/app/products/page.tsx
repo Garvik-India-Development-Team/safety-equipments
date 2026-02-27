@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Shield, HeartPulse, HardHat, Footprints, Flame, Construction, Lock } from "lucide-react";
 
-const CATEGORIES = [
+export const CATEGORIES = [
     {
         title: "PPE",
         subtitle: "Personal Protective Equipment",

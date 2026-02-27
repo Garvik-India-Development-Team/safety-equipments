@@ -7,14 +7,21 @@ interface PageProps {
     params: Promise<{ category: string; slug: string }>;
 }
 
+import { getDb } from "@/lib/db";
+
 async function getProduct(slug: string) {
-    const base = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     try {
-        const res = await fetch(`${base}/api/products/${encodeURIComponent(slug)}`, {
-            cache: "no-store",
-        });
-        if (!res.ok) return null;
-        return await res.json();
+        const db = await getDb();
+        const product = await db.collection("products").findOne({ slug }) as any;
+        if (!product) return null;
+
+        return {
+            ...product,
+            _id: product._id.toString(),
+            categoryId: product.categoryId?.toString(),
+            subcategoryId: product.subcategoryId?.toString(),
+            brandId: product.brandId?.toString(),
+        };
     } catch (e) {
         return null;
     }
@@ -105,8 +112,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
                         <div className="mb-4">
                             <div className="flex gap-2 mb-3">
                                 <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wide border ${product.availability === "made_to_order"
-                                        ? "bg-yellow-500/10 text-yellow-600 border-yellow-500/30"
-                                        : "bg-green-500/10 text-green-600 border-green-500/30"
+                                    ? "bg-yellow-500/10 text-yellow-600 border-yellow-500/30"
+                                    : "bg-green-500/10 text-green-600 border-green-500/30"
                                     }`}>
                                     {product.availability === "made_to_order" ? "Made to Order" : "In Stock"}
                                 </span>
