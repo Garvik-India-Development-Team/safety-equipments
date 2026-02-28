@@ -247,7 +247,7 @@ export function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="px-5 py-3.5 text-sm font-bold uppercase tracking-wide text-white hover:bg-white/20 transition-colors relative group"
+                  className="px-5 py-5 text-sm font-bold uppercase tracking-wide text-white hover:bg-white/20 transition-colors relative group"
                 >
                   {link.label}
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300" />
@@ -257,7 +257,7 @@ export function Header() {
             {/* Phone CTA on the right of nav */}
             <a
               href={`tel:${WHATSAPP_NUMBER.replace(/\D/g, "")}`}
-              className="flex items-center gap-2 text-sm font-bold text-white hover:text-safety-hivis-yellow transition-colors py-3.5"
+              className="flex items-center gap-2 text-sm font-bold text-white hover:text-safety-hivis-yellow transition-colors py-5"
             >
               <Phone className="h-4 w-4" />
               <span>Call: {PHONE_NUMBER}</span>

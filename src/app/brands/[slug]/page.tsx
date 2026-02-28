@@ -1,17 +1,22 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { BrandProducts } from "@/components/brand-products";
+import { getDb } from "@/lib/db";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 async function getBrand(slug: string) {
-  const base = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const res = await fetch(`${base}/api/brands`, { cache: "no-store" });
-  if (!res.ok) return null;
-  const data = await res.json();
-  return (data.brands ?? []).find((b: { slug: string }) => b.slug === slug) ?? null;
+  try {
+    const db = await getDb();
+    const coll = db.collection("brands");
+    const brand = await coll.findOne({ slug });
+    if (!brand) return null;
+    return { ...brand, _id: brand._id.toString() } as any;
+  } catch (e) {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: PageProps) {

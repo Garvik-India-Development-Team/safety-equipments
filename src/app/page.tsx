@@ -2,44 +2,16 @@ import Link from "next/link";
 import { Shield, Award, Clock, Truck } from "lucide-react";
 import Image from "next/image";
 import { PartnersSection } from "@/components/partners-section";
+import { HeroSlider } from "@/components/hero-slider";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Main Content */}
       <main className="flex-1 w-full max-w-[1440px] mx-auto px-4 md:px-10 py-8">
-        {/* Hero Section */}
-        <section className="rounded-2xl overflow-hidden bg-surface-dark border border-border-dark shadow-2xl mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
-            {/* Image Side */}
-            <div className="relative h-64 lg:h-full w-full bg-gray-800">
-              <div className="absolute inset-0 bg-cover bg-center" data-alt="Industrial worker in safety gear looking at tablet" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsKfpxb8hkt32BKgQoAsBph0OuATpkvIkYm7I-lQMM-IgxuUAM8fggkFBh6EBHZqzu7_Ace_2slQ6m1uMitNtNZTxsSNUTwxq_j3dmIWD6cUzbSda57i-iHinUBzo38uybscC3wL4SREYmjOqXn-EZi6ILxUi-8u_THQ-5gEmGyEq1Myjfqf0jjliCo7uqpPbNjBKFqD_BatoaldHgBVvCXmWEhndKYrbLZ4WtRJLCLZo6wuN3o4QdrRStCOtg3lJYu2bSqr_Qp_q6')" }}></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 lg:bg-gradient-to-r lg:from-transparent lg:to-surface-dark"></div>
-            </div>
-            {/* Content Side */}
-            <div className="flex flex-col justify-center p-8 lg:p-16 text-left">
-              <div className="inline-flex items-center gap-2 text-primary font-bold text-sm tracking-wider uppercase mb-4">
-                <span className="w-8 h-[2px] bg-primary"></span>
-                Premium Protection
-              </div>
-              <h1 className="text-4xl lg:text-6xl font-black text-white leading-tight mb-6">
-                Safety First,<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Excellence Always</span>
-              </h1>
-              <p className="text-text-muted text-lg mb-8 max-w-md leading-relaxed text-gray-400">
-                Equip your team with premium industrial safety gear designed for maximum protection, compliance, and all-day comfort.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/category/ppe" className="bg-primary hover:bg-primary-dark text-black px-8 py-3.5 rounded-lg text-base font-bold transition-all shadow-[0_0_20px_rgba(255,215,0,0.2)] hover:shadow-[0_0_30px_rgba(255,215,0,0.4)] flex items-center gap-2">
-                  Shop All Categories
-                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                </Link>
-                <Link href="/brands" className="bg-transparent border border-gray-700 hover:border-white text-white px-8 py-3.5 rounded-lg text-base font-medium transition-colors hover:bg-white/5">
-                  View Catalog
-                </Link>
-              </div>
-            </div>
-          </div>
+        {/* Animated Hero Slider */}
+        <section className="mb-16">
+          <HeroSlider />
         </section>
 
         {/* Stats / Trust Indicators */}
