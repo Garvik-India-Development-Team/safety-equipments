@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useCartStore } from "@/store/quote-store";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919811048483";
 const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 9811048483";
@@ -43,6 +44,7 @@ const SEARCH_CATEGORIES = [
 ];
 
 export function Header() {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [searchCategory, setSearchCategory] = useState("All Categories");
@@ -206,17 +208,50 @@ export function Header() {
                 </span>
               </button>
 
-              {/* Account */}
-              <Link
-                href="/contact"
-                className="flex flex-col items-center gap-0.5 group"
-                title="Account"
-              >
-                <User className="h-6 w-6 text-safety-charcoal group-hover:text-safety-neon-orange transition-colors" />
-                <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide">
-                  Account
-                </span>
-              </Link>
+              {/* Account / Login */}
+              {status === "loading" ? (
+                <div className="flex flex-col items-center gap-0.5 w-12 opacity-50">
+                  <User className="h-6 w-6 text-safety-charcoal" />
+                  <span className="text-[10px] text-gray-500 font-medium">...</span>
+                </div>
+              ) : session ? (
+                <div className="relative group cursor-pointer">
+                  <div className="flex flex-col items-center gap-0.5" title={session.user?.name || "Account"}>
+                    {session.user?.image ? (
+                      <img src={session.user.image} alt="User Profile" className="h-6 w-6 rounded-full border border-gray-300" />
+                    ) : (
+                      <User className="h-6 w-6 text-safety-charcoal group-hover:text-safety-neon-orange transition-colors" />
+                    )}
+                    <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide truncate max-w-[50px]">
+                      {session.user?.name?.split(' ')[0] || "Account"}
+                    </span>
+                  </div>
+                  {/* Dropdown Menu */}
+                  <div className="absolute top-full right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 min-w-[150px] overflow-hidden">
+                    <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-800 truncate">{session.user?.name}</p>
+                      <p className="text-xs text-gray-500 truncate">{session.user?.email}</p>
+                    </div>
+                    <button
+                      onClick={() => signOut()}
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => signIn("google")}
+                  className="flex flex-col items-center gap-0.5 group bg-transparent border-none cursor-pointer"
+                  title="Sign In"
+                >
+                  <User className="h-6 w-6 text-safety-charcoal group-hover:text-safety-neon-orange transition-colors" />
+                  <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide">
+                    Sign In
+                  </span>
+                </button>
+              )}
             </div>
 
             {/* Mobile Menu Button */}

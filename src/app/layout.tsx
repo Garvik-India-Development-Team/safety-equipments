@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { QuoteModal } from "@/components/quote-modal";
+import { AuthProvider } from "@/components/auth-provider";
 
 const barlow = Barlow({
   variable: "--font-barlow",
@@ -33,10 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${barlow.variable} antialiased min-h-screen flex flex-col`}>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <QuoteModal />
+        <AuthProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <QuoteModal />
+        </AuthProvider>
       </body>
     </html>
   );

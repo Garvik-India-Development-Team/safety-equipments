@@ -10,16 +10,21 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/quote-store";
 import { MessageCircle, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919811048483";
 
 export function QuoteModal() {
+  const { data: session } = useSession();
   const { isOpen, close, items, updateQuantity, removeItem, clearCart } = useCartStore();
 
   const handleCheckout = () => {
     if (items.length === 0) return;
 
-    let message = `Hello, I would like to request a quotation for the following bulk order:\n\n`;
+    let message = session?.user?.name
+      ? `Hello, this is ${session.user.name}. I would like to request a quotation for the following bulk order:\n\n`
+      : `Hello, I would like to request a quotation for the following bulk order:\n\n`;
+
     items.forEach((item, index) => {
       message += `${index + 1}. *${item.productName}*\n`;
       if (item.sku) message += `   SKU: ${item.sku}\n`;
@@ -31,8 +36,6 @@ export function QuoteModal() {
     const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
 
-    // Optional: Clear cart after successful handoff to WhatsApp
-    // clearCart(); 
     close();
   };
 
