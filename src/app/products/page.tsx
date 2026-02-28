@@ -9,7 +9,7 @@ export const CATEGORIES = [
         slug: "ppe",
         description: "Helmets, goggles, ear muffs, and masks for full-body worker safety.",
         icon: HardHat,
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBIeafjGzRi5oxEZx4V7f5OF0YLExFPJgL_KZN7pMHmyjdSq5g1qk61xspuBDuapEedQErfKEh1wA3MWBLMJH8_0DyJYw3fUyArqTijH5VTahjoIZvJiD2zS3ayNhR_cDGrpUZvx_aTt-OPovvwOkAgl9e5svdmVlMh20hWD4PQiR5CjLaYa3PSw0xpSlyMUNr8mPpEIs5EeWACWeVs1nqz3PQFdKbcq7-SAqhnl6EMgloYi7E7RZ2x-YcA-fEhhDKYsqA5UMId81M4",
+        image: "/images/cat_ppe.png",
         badge: "Crucial"
     },
     {
@@ -18,7 +18,7 @@ export const CATEGORIES = [
         slug: "safety-clothing-footwear",
         description: "High-visibility vests, chemical suits, shoes, and gumboots.",
         icon: Shield,
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAeSpVdvRB3d7NDjWX7RGDBb9nQU8jyhhuSJQnZqieFy-SyBwHmerkZKwxkGydvco3uqiiAqCReNgi85_me6qSdAS3KsfJKrsdN-eEHC8TP5q1-lrQeUVwj2trSeM5Oy2-42cW2rARgL_DmvIySmyP6hURhShtsA1IIAhsU4-CiD7KcGtzmhdPNQxV-kAU7grRDdV_nbxST9hlmOjrfaYwd00gXVzqw5PfBn9f3lR7lv_iL_v_6oVPA3jAyLFhFKYTyCoaCJ1dsS1Rj",
+        image: "/images/cat_clothing.png",
         badge: "Wear"
     },
     {
@@ -27,7 +27,7 @@ export const CATEGORIES = [
         slug: "fall-protection",
         description: "Safety harnesses, lanyards, and lifelines to prevent severe injuries.",
         icon: Construction,
-        image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=600&auto=format&fit=crop",
+        image: "/images/cat_fall.png",
         badge: "Essential"
     },
     {
@@ -36,7 +36,7 @@ export const CATEGORIES = [
         slug: "fire-chemical-safety",
         description: "Fire extinguishers, blankets, and chemical spill kits for rapid response.",
         icon: Flame,
-        image: "https://images.unsplash.com/photo-1563223771-38ae345dbf48?q=80&w=600&auto=format&fit=crop",
+        image: "/images/cat_fire.png",
         badge: "Critical"
     },
     {
@@ -45,7 +45,7 @@ export const CATEGORIES = [
         slug: "emergency-response-first-aid",
         description: "Stretchers, comprehensive first aid kits, and rescue equipment.",
         icon: HeartPulse,
-        image: "https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=600&auto=format&fit=crop",
+        image: "/images/cat_firstaid.png",
         badge: "Required"
     },
     {
@@ -54,7 +54,7 @@ export const CATEGORIES = [
         slug: "workplace-safety-signage-barriers",
         description: "Safety signs, traffic cones, barricades, and warning boards.",
         icon: Construction,
-        image: "https://images.unsplash.com/photo-1510443905586-7977a4bbd41e?q=80&w=600&auto=format&fit=crop",
+        image: "/images/cat_signs.png",
         badge: "Standard"
     },
     {
@@ -63,7 +63,7 @@ export const CATEGORIES = [
         slug: "lockout-tagout",
         description: "Kits and padlocks to securely de-energize equipment during maintenance.",
         icon: Lock,
-        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop",
+        image: "/images/cat_signs.png",
         badge: "Safety"
     },
     {
@@ -72,7 +72,7 @@ export const CATEGORIES = [
         slug: "gas-detection-confined-space",
         description: "Portable gas detectors and ventilation systems for hazardous spaces.",
         icon: Shield,
-        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
+        image: "/images/cat_gas.png",
         badge: "Crucial"
     },
     {
@@ -81,7 +81,7 @@ export const CATEGORIES = [
         slug: "electrical-safety-equipment",
         description: "Insulated tools, voltage detectors, and arc flash gear.",
         icon: Flame,
-        image: "https://images.unsplash.com/photo-1544724569-5f546fd6f2b6?q=80&w=600&auto=format&fit=crop",
+        image: "/images/cat_electrical.png",
         badge: "High-Risk"
     },
 ];

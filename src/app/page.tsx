@@ -43,33 +43,33 @@ export default function HomePage() {
         </section>
 
         {/* Stats / Trust Indicators */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20 border-y border-gray-800 py-8">
-          <div className="flex flex-col items-center justify-center text-center gap-1 border-r border-gray-800 last:border-0">
-            <span className="text-3xl font-black text-white">50k+</span>
-            <span className="text-xs text-gray-400 uppercase tracking-wider">Products</span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20 border-y border-border py-8">
+          <div className="flex flex-col items-center justify-center text-center gap-1 border-r border-border last:border-0">
+            <span className="text-3xl font-black text-foreground">50k+</span>
+            <span className="text-xs text-muted-foreground uppercase tracking-wider">Products</span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center gap-1 border-r border-gray-800 last:border-0 md:border-r">
-            <span className="text-3xl font-black text-white">24/7</span>
-            <span className="text-xs text-gray-400 uppercase tracking-wider">Support</span>
+          <div className="flex flex-col items-center justify-center text-center gap-1 border-r border-border last:border-0 md:border-r">
+            <span className="text-3xl font-black text-foreground">24/7</span>
+            <span className="text-xs text-muted-foreground uppercase tracking-wider">Support</span>
           </div>
-          <div className="flex flex-col items-center justify-center text-center gap-1 border-r border-gray-800 last:border-0">
-            <span className="text-3xl font-black text-white">100%</span>
-            <span className="text-xs text-gray-400 uppercase tracking-wider">Compliant</span>
+          <div className="flex flex-col items-center justify-center text-center gap-1 border-r border-border last:border-0">
+            <span className="text-3xl font-black text-foreground">100%</span>
+            <span className="text-xs text-muted-foreground uppercase tracking-wider">Compliant</span>
           </div>
           <div className="flex flex-col items-center justify-center text-center gap-1">
-            <span className="text-3xl font-black text-white">Free</span>
-            <span className="text-xs text-gray-400 uppercase tracking-wider">Shipping &gt; $500</span>
+            <span className="text-3xl font-black text-foreground">Free</span>
+            <span className="text-xs text-muted-foreground uppercase tracking-wider">Shipping &gt; $500</span>
           </div>
         </div>
 
         {/* Deals of the Day */}
         <section className="mb-20">
           <div className="flex items-center justify-between mb-8 px-2">
-            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">local_offer</span>
               Deals of the Day
             </h2>
-            <Link href="/category/ppe" className="text-primary hover:text-white text-sm font-medium transition-colors flex items-center gap-1">
+            <Link href="/category/ppe" className="text-primary hover:text-primary-dark text-sm font-medium transition-colors flex items-center gap-1">
               View All Offers
               <span className="material-symbols-outlined text-base">chevron_right</span>
             </Link>
@@ -149,8 +149,8 @@ export default function HomePage() {
         {/* Industries We Serve */}
         <section className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Industries We Serve</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">Providing specialized equipment tailored to the unique safety challenges of major industrial sectors.</p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Industries We Serve</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Providing specialized equipment tailored to the unique safety challenges of major industrial sectors.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Industry Card 1 */}
