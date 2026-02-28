@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MessageCircle, Phone, Mail } from "lucide-react";
+import { MessageCircle, Phone, Mail, User, MapPin } from "lucide-react";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -73,16 +73,28 @@ export default function ContactPage() {
               </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                    <User className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Contact Person</h3>
+                    <p className="text-gray-600">Rahul Sakhuja</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-safety-blue/10 text-safety-blue">
                     <Phone className="h-6 w-6" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                    <a href={`tel:${WHATSAPP.replace(/\D/g, "")}`} className="text-gray-600 hover:text-safety-blue transition-colors">
-                      {PHONE}
-                    </a>
+                    <p className="text-gray-600">
+                      Mobile: <a href={`tel:${WHATSAPP.replace(/\D/g, "")}`} className="hover:text-safety-blue transition-colors">+91 {WHATSAPP.replace(/\D/g, "")}</a><br />
+                      Office: <a href={`tel:01123215050`} className="hover:text-safety-blue transition-colors">011-23215050</a>, 43517483
+                    </p>
                   </div>
                 </div>
+
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-safety-yellow/20 text-safety-yellow">
                     <Mail className="h-6 w-6" />
@@ -94,6 +106,33 @@ export default function ContactPage() {
                     </a>
                   </div>
                 </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                    <MapPin className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Office Address</h3>
+                    <p className="text-gray-600">
+                      S.C.O : 4614-15, Gali Shahtara, Ajmeri Gate,<br />
+                      Delhi - 110006
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                    <MapPin className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Works Address</h3>
+                    <p className="text-gray-600">
+                      NJ-93 Sector - 3, Bawana Ind. Area,<br />
+                      New Delhi - 110039
+                    </p>
+                  </div>
+                </div>
+
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366]">
                     <MessageCircle className="h-6 w-6" />

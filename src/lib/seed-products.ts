@@ -14,7 +14,7 @@ export const SEED_PRODUCTS = [
         brandName: "ProGuard Safety",
         certifications: ["ANSI Z89.1", "CE EN 397"],
         applications: ["Construction", "Manufacturing", "Oil & Gas"],
-        images: ["https://images.unsplash.com/photo-1542010589005-d1eacc3910f2?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/proguard-safety-helmet-type-1.jpg"],
     },
     {
         name: "UltraVision Anti-Fog Safety Goggles",
@@ -28,7 +28,7 @@ export const SEED_PRODUCTS = [
         brandName: "VisionTech",
         certifications: ["ANSI Z87.1+", "EN 166"],
         applications: ["Chemical Handling", "Laboratory", "Woodworking"],
-        images: ["https://images.unsplash.com/photo-1584445584469-65e1ebd6d9dc?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/ultravision-anti-fog-safety-goggles.jpg"],
     },
     {
         name: "SoundShield Earmuffs 30dB NRR",
@@ -42,7 +42,7 @@ export const SEED_PRODUCTS = [
         brandName: "SoundShield",
         certifications: ["ANSI S3.19", "CE EN 352-1"],
         applications: ["Manufacturing", "Aviation", "Landscaping"],
-        images: ["https://plus.unsplash.com/premium_photo-1661608752119-035bba68d6ff?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/soundshield-earmuffs-30db-nrr.jpg"],
     },
     {
         name: "AeroBreath N95 Particulate Respirator",
@@ -70,7 +70,7 @@ export const SEED_PRODUCTS = [
         brandName: "TitanGrip",
         certifications: ["ANSI Cut Level A5", "EN 388:2016"],
         applications: ["Metal Fabrication", "Glass Handling", "Automotive"],
-        images: ["https://images.unsplash.com/photo-1584347895123-57351ff73827?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/titangrip-cut-resistant-kevlar-gloves.webp"],
     },
     {
         name: "Lumina Reflective Safety Vest Class 2",
@@ -84,7 +84,7 @@ export const SEED_PRODUCTS = [
         brandName: "Lumina Wear",
         certifications: ["ANSI/ISEA 107-2015 Class 2"],
         applications: ["Road Work", "Surveying", "Warehousing", "Emergency Response"],
-        images: ["https://images.unsplash.com/photo-1628102491629-77858ab215b2?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/lumina-reflective-safety-vest-class-2.png"],
     },
     {
         name: "SecureTread Steel Toe Work Boots",
@@ -98,7 +98,7 @@ export const SEED_PRODUCTS = [
         brandName: "SecureTread",
         certifications: ["ASTM F2413-18", "Slip Resistance Certified"],
         applications: ["Construction", "Mining", "Heavy Equipment Operation"],
-        images: ["https://images.unsplash.com/photo-1505784045224-1247b2b29cf3?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/securetread-steel-toe-work-boots.png"],
     },
     {
         name: "Guardian Fall Protection Harness Kit",
@@ -112,7 +112,7 @@ export const SEED_PRODUCTS = [
         brandName: "Guardian Fall",
         certifications: ["OSHA 1910.140", "ANSI Z359.11"],
         applications: ["Roofing", "Scaffolding", "Tower Climbing"],
-        images: ["https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/guardian-fall-protection-harness-kit.jpg"],
     },
     {
         name: "ABC Dry Chemical Fire Extinguisher 5kg",
@@ -126,7 +126,7 @@ export const SEED_PRODUCTS = [
         brandName: "SafeFire",
         certifications: ["ISI Marked", "CE Certified"],
         applications: ["Offices", "Warehouses", "Vehicles", "Industrial Plants"],
-        images: ["https://images.unsplash.com/photo-1563223771-38ae345dbf48?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/abc-dry-chemical-fire-extinguisher-5kg.jpg"],
     },
     {
         name: "High-Visibility Traffic Cone 750mm",
@@ -140,7 +140,7 @@ export const SEED_PRODUCTS = [
         brandName: "RoadSafe",
         certifications: ["MUTCD Compliant"],
         applications: ["Road Works", "Traffic Management", "Parking Lots"],
-        images: ["https://images.unsplash.com/photo-1510443905586-7977a4bbd41e?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/high-visibility-traffic-cone-750mm.jpg"],
     },
     {
         name: "Standard Lockout Tagout Kit",
@@ -154,7 +154,7 @@ export const SEED_PRODUCTS = [
         brandName: "SafeLock",
         certifications: ["OSHA 1910.147 Compliant"],
         applications: ["Maintenance", "Electrical Work", "Machinery Servicing"],
-        images: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/standard-lockout-tagout-kit.jpg"],
     },
     {
         name: "Industrial First Aid Kit - 50 Person",
@@ -168,7 +168,7 @@ export const SEED_PRODUCTS = [
         brandName: "MediSafe",
         certifications: ["ANSI/ISEA Z308.1-2015"],
         applications: ["Offices", "Manufacturing Floors", "Construction Sites"],
-        images: ["https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/industrial-first-aid-kit-50-person.jpg"],
     },
     {
         name: "Shock Absorbing Lanyard 6ft",
@@ -182,7 +182,7 @@ export const SEED_PRODUCTS = [
         brandName: "Guardian Fall",
         certifications: ["OSHA 1910.140", "ANSI Z359.13"],
         applications: ["Construction", "Tower Climbing"],
-        images: ["https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/shock-absorbing-lanyard-6ft.png"],
     },
     {
         name: "Emergency Fire Blanket 1.2m x 1.8m",
@@ -196,7 +196,7 @@ export const SEED_PRODUCTS = [
         brandName: "SafeFire",
         certifications: ["EN 1869"],
         applications: ["Kitchens", "Laboratories", "Workshops"],
-        images: ["https://images.unsplash.com/photo-1563223771-38ae345dbf48?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/emergency-fire-blanket-1-2m.jpg"],
     },
     {
         name: "Portable Folding Aluminum Stretcher",
@@ -210,7 +210,7 @@ export const SEED_PRODUCTS = [
         brandName: "MediSafe",
         certifications: ["CE Certified"],
         applications: ["Emergency Services", "Industrial Clinics"],
-        images: ["https://images.unsplash.com/photo-1603398938378-e54eab446dde?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/portable-folding-aluminum-stretcher.jpg"],
     },
     {
         name: "Caution Wet Floor Warning Board",
@@ -224,7 +224,7 @@ export const SEED_PRODUCTS = [
         brandName: "RoadSafe",
         certifications: ["OSHA Compliant"],
         applications: ["Facilities Management", "Janitorial"],
-        images: ["https://images.unsplash.com/photo-1510443905586-7977a4bbd41e?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/caution-wet-floor-warning-board.jpg"],
     },
     {
         name: "Non-Conductive Safety Padlock Red",
@@ -238,7 +238,7 @@ export const SEED_PRODUCTS = [
         brandName: "SafeLock",
         certifications: ["OSHA 1910.147 Compliant"],
         applications: ["Electrical Maintenance", "Equipment Isolation"],
-        images: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/non-conductive-safety-padlock-red.jpg"],
     },
     {
         name: "Multi-Gas Detector (H2S, CO, O2, LEL)",
@@ -252,7 +252,7 @@ export const SEED_PRODUCTS = [
         brandName: "GasAlert",
         certifications: ["ATEX", "UL Certified"],
         applications: ["Confined Space Entry", "Oil & Gas", "Sewer Work"],
-        images: ["https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/multi-gas-detector-4-gas.jpg"],
     },
     {
         name: "Confined Space Ventilation Blower",
@@ -266,7 +266,7 @@ export const SEED_PRODUCTS = [
         brandName: "AirFlow Pro",
         certifications: ["CE Certified"],
         applications: ["Manhole Entry", "Tank Cleaning"],
-        images: ["https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/confined-space-ventilation-blower.jpg"],
     },
     {
         name: "1000V Insulated Screwdriver Set",
@@ -280,7 +280,7 @@ export const SEED_PRODUCTS = [
         brandName: "VoltSafe",
         certifications: ["VDE", "IEC 60900"],
         applications: ["Electrical Installation", "Panel Wiring"],
-        images: ["https://images.unsplash.com/photo-1544724569-5f546fd6f2b6?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/1000v-insulated-screwdriver-set.jpg"],
     },
     {
         name: "40 Cal/cm2 Arc Flash Suit",
@@ -294,7 +294,7 @@ export const SEED_PRODUCTS = [
         brandName: "VoltSafe",
         certifications: ["NFPA 70E", "ASTM F1506"],
         applications: ["High Voltage Switching", "Electrical Substation"],
-        images: ["https://images.unsplash.com/photo-1544724569-5f546fd6f2b6?q=80&w=600&auto=format&fit=crop"],
+        images: ["/products/40-cal-arc-flash-suit.jpg"],
     }
 ];
 
