@@ -1,6 +1,26 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
-import { ObjectId } from "mongodb";
+import { CATEGORY_TREE } from "@/lib/seed-categories";
+
+// Flattens the tree into a simple array with parent IDs for backward compatibility
+function flattenCategories(tree: any[], parentId: string | null = null, level = 1, orderOffset = 0) {
+  let flat: any[] = [];
+  tree.forEach((node, index) => {
+    const id = node.slug; // Use slug as deterministic ID
+    const current = {
+      _id: id,
+      name: node.name,
+      slug: node.slug,
+      parentId,
+      level,
+      order: orderOffset + index,
+    };
+    flat.push(current);
+    if (node.children) {
+      flat = flat.concat(flattenCategories(node.children, id, level + 1, orderOffset + index * 10));
+    }
+  });
+  return flat;
+}
 
 export async function GET(request: Request) {
   try {
@@ -9,40 +29,26 @@ export async function GET(request: Request) {
     const parentSlug = searchParams.get("parent");
     const tree = searchParams.get("tree") === "true";
 
-    const db = await getDb();
-    const coll = db.collection("categories");
+    const flatCategories = flattenCategories(CATEGORY_TREE);
+
+    // Root category mock
+    const root = { _id: "root-catalog", name: "Catalog", slug: "catalog", parentId: null, level: 0, order: 0 };
+    flatCategories.unshift(root);
 
     if (tree) {
-      const root = await coll.findOne({ level: 0 });
-      if (!root) return NextResponse.json({ categories: [] });
-      const main = await coll
-        .find({ parentId: root._id })
-        .sort({ order: 1 })
-        .toArray();
-      const withChildren = await Promise.all(
-        main.map(async (m) => {
-          const children = await coll
-            .find({ parentId: m._id })
-            .sort({ order: 1 })
-            .toArray();
-          return {
-            ...m,
-            _id: m._id.toString(),
-            parentId: m.parentId?.toString() ?? null,
-            children: children.map((c) => ({
-              ...c,
-              _id: c._id.toString(),
-              parentId: c.parentId?.toString() ?? null,
-            })),
-          };
-        })
-      );
+      const main = flatCategories.filter(c => c.parentId === root._id || c.level === 1);
+      const withChildren = main.map(m => {
+        const children = flatCategories.filter(c => c.parentId === m._id);
+        return {
+          ...m,
+          children
+        };
+      });
+
       return NextResponse.json({
         categories: [
           {
             ...root,
-            _id: root._id.toString(),
-            parentId: null,
             children: withChildren,
           },
         ],
@@ -50,47 +56,23 @@ export async function GET(request: Request) {
     }
 
     if (slug) {
-      const cat = await coll.findOne({ slug });
+      const cat = flatCategories.find(c => c.slug === slug);
       if (!cat) return NextResponse.json({ error: "Not found" }, { status: 404 });
-      const children = cat.level < 2
-        ? await coll.find({ parentId: cat._id }).sort({ order: 1 }).toArray()
-        : [];
+      const children = flatCategories.filter(c => c.parentId === cat._id);
       return NextResponse.json({
         ...cat,
-        _id: cat._id.toString(),
-        parentId: cat.parentId?.toString() ?? null,
-        children: children.map((c) => ({
-          ...c,
-          _id: c._id.toString(),
-          parentId: c.parentId?.toString() ?? null,
-        })),
+        children
       });
     }
 
     if (parentSlug) {
-      const parent = await coll.findOne({ slug: parentSlug });
+      const parent = flatCategories.find(c => c.slug === parentSlug);
       if (!parent) return NextResponse.json({ categories: [] });
-      const list = await coll
-        .find({ parentId: parent._id })
-        .sort({ order: 1 })
-        .toArray();
-      return NextResponse.json({
-        categories: list.map((c) => ({
-          ...c,
-          _id: c._id.toString(),
-          parentId: c.parentId?.toString() ?? null,
-        })),
-      });
+      const list = flatCategories.filter(c => c.parentId === parent._id);
+      return NextResponse.json({ categories: list });
     }
 
-    const all = await coll.find({}).sort({ level: 1, order: 1 }).toArray();
-    return NextResponse.json({
-      categories: all.map((c) => ({
-        ...c,
-        _id: c._id.toString(),
-        parentId: c.parentId?.toString() ?? null,
-      })),
-    });
+    return NextResponse.json({ categories: flatCategories });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

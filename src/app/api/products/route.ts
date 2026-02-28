@@ -1,5 +1,18 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { SEED_PRODUCTS } from "@/lib/seed-products";
+import { CATEGORY_TREE } from "@/lib/seed-categories";
+
+// Helper to flatten categories locally
+function flattenCategories(tree: any[], parentId: string | null = null) {
+  let flat: any[] = [];
+  tree.forEach((node) => {
+    flat.push({ _id: node.slug, slug: node.slug, parentId });
+    if (node.children) {
+      flat = flat.concat(flattenCategories(node.children, node.slug));
+    }
+  });
+  return flat;
+}
 
 export async function GET(request: Request) {
   try {
@@ -17,48 +30,51 @@ export async function GET(request: Request) {
     const limit = Math.min(24, Math.max(8, parseInt(searchParams.get("limit") || "12", 10)));
     const skip = (page - 1) * limit;
 
-    const db = await getDb();
-    const productsColl = db.collection("products");
-    const categoriesColl = db.collection("categories");
+    const flatCats = flattenCategories(CATEGORY_TREE);
 
-    const filter: Record<string, unknown> = {};
-
-    if (featured) filter.featured = true;
-    if (categorySlug) {
-      const cat = await categoriesColl.findOne({ slug: categorySlug });
-      if (cat) filter.categoryId = cat._id.toString();
-    }
-    if (subcategorySlug) {
-      const sub = await categoriesColl.findOne({ slug: subcategorySlug });
-      if (sub) filter.subcategoryId = sub._id.toString();
-    }
-    if (search) {
-      filter.$or = [
-        { name: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
-      ];
-    }
-    if (certification) filter.certifications = certification;
-    if (material) filter.material = material;
-    if (industryUse) filter.industryUse = industryUse;
-    if (protectionType) filter.protectionType = protectionType;
-    if (brand) filter.brandId = brand;
-
-    const [products, total] = await Promise.all([
-      productsColl.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).toArray(),
-      productsColl.countDocuments(filter),
-    ]);
-
-    const withStrings = products.map((p) => ({
+    // Create a mutable copy of our array to filter
+    let filteredProducts = [...SEED_PRODUCTS].map(p => ({
       ...p,
-      _id: p._id.toString(),
-      categoryId: p.categoryId?.toString(),
-      subcategoryId: p.subcategoryId?.toString(),
-      brandId: p.brandId?.toString(),
+      _id: p.slug, // Use slug as deterministic ID
     }));
 
+    if (categorySlug) {
+      filteredProducts = filteredProducts.filter(p => p.categorySlug === categorySlug);
+    }
+    if (subcategorySlug) {
+      filteredProducts = filteredProducts.filter(p => p.subcategorySlug === subcategorySlug);
+    }
+    if (search) {
+      const s = search.toLowerCase();
+      filteredProducts = filteredProducts.filter(p =>
+        p.name.toLowerCase().includes(s) ||
+        p.description.toLowerCase().includes(s)
+      );
+    }
+
+    // Cast types locally for static seed records since these optional properties might not exist on all items
+    if (certification) {
+      filteredProducts = filteredProducts.filter((p: any) => p.certifications?.includes(certification));
+    }
+    if (material) {
+      filteredProducts = filteredProducts.filter((p: any) => p.material === material);
+    }
+    if (industryUse) {
+      filteredProducts = filteredProducts.filter((p: any) => p.industryUse?.includes(industryUse));
+    }
+    if (protectionType) {
+      filteredProducts = filteredProducts.filter((p: any) => p.protectionType === protectionType);
+    }
+    if (brand) {
+      // Use brandName for static data
+      filteredProducts = filteredProducts.filter((p: any) => p.brandName === brand);
+    }
+
+    const total = filteredProducts.length;
+    const paginatedProducts = filteredProducts.slice(skip, skip + limit);
+
     return NextResponse.json({
-      products: withStrings,
+      products: paginatedProducts,
       total,
       page,
       limit,
@@ -71,22 +87,6 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const db = await getDb();
-    const productsColl = db.collection("products");
-    const doc = {
-      ...body,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    const result = await productsColl.insertOne(doc);
-    return NextResponse.json({
-      _id: result.insertedId.toString(),
-      ...doc,
-    });
-  } catch (e) {
-    console.error(e);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
-  }
+  // Static site - No product creation allowed via API
+  return NextResponse.json({ error: "Method not allowed on static architecture" }, { status: 405 });
 }

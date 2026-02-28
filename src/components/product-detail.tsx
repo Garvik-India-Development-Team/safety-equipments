@@ -6,7 +6,7 @@ import { useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { Button } from "@/components/ui/button";
 import { FileDown, MessageCircle, Phone } from "lucide-react";
-import { useQuoteStore } from "@/store/quote-store";
+import { useCartStore } from "@/store/quote-store"; // Changed from useQuoteStore to useCartStore
 import { cn } from "@/lib/utils";
 
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210";
@@ -34,13 +34,10 @@ interface ProductDetailProps {
   subcategorySlug: string;
 }
 
-export function ProductDetail({
-  product,
-  categorySlug,
-  subcategorySlug,
-}: ProductDetailProps) {
+export function ProductDetail({ product, categorySlug, subcategorySlug }: ProductDetailProps) {
   const [imageIndex, setImageIndex] = useState(0);
-  const openQuote = useQuoteStore((s) => s.open);
+  const openCart = useCartStore((s) => s.open);
+  const catSlug = product.categorySlug || categorySlug;
   const availabilityText =
     product.availability === "made_to_order" ? "Made to Order" : "In Stock";
 
@@ -114,12 +111,12 @@ export function ProductDetail({
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Button
-              variant="safety"
               size="lg"
-              className="text-safety-black"
-              onClick={() => openQuote({ productId: product._id, productName: product.name })}
+              variant="safety"
+              className="md:hidden w-full font-bold shadow-md"
+              onClick={() => openCart()}
             >
-              Request Quote
+              Open Cart
             </Button>
             <a
               href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi, I'm interested in: ${product.name}`)}`}

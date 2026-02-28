@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { SEED_PRODUCTS } from "@/lib/seed-products";
 
 export async function GET() {
   try {
-    const db = await getDb();
-    const brands = await db.collection("brands").find({}).sort({ name: 1 }).toArray();
+    const brandNames = [...new Set(SEED_PRODUCTS.map((p) => p.brandName).filter(Boolean))].sort();
+
     return NextResponse.json({
-      brands: brands.map((b) => ({
-        ...b,
-        _id: b._id.toString(),
+      brands: brandNames.map((name) => ({
+        _id: name,
+        name: name,
+        slug: name?.toLowerCase().replace(/\s+/g, '-'),
       })),
     });
   } catch (e) {

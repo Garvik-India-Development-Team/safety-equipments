@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FileDown, MessageCircle } from "lucide-react";
+import { FileDown, MessageCircle, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useQuoteStore } from "@/store/quote-store";
+import { useCartStore } from "@/store/quote-store"; // Reusing the same file path for now
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -18,6 +18,7 @@ interface ProductCardProps {
     availability: string;
     datasheetUrl?: string;
     categoryId?: string;
+    sku?: string;
   };
   categorySlug?: string;
   subcategorySlug?: string;
@@ -32,7 +33,9 @@ export function ProductCard({
   subcategorySlug,
   className,
 }: ProductCardProps) {
-  const openQuote = useQuoteStore((s) => s.open);
+  const addToCart = useCartStore((s) => s.addItem);
+  const openCart = useCartStore((s) => s.open);
+
   const catSlug = product.categorySlug || categorySlug;
   const subSlug = product.subcategorySlug || subcategorySlug;
   const href = subSlug
@@ -41,6 +44,16 @@ export function ProductCard({
 
   const availabilityText =
     product.availability === "made_to_order" ? "Made to Order" : "In Stock";
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    addToCart({
+      productId: product._id,
+      productName: product.name,
+      sku: product.sku,
+    });
+    openCart();
+  };
 
   return (
     <article
@@ -90,26 +103,21 @@ export function ProductCard({
         <div className="mt-auto pt-3 space-y-2">
           <Button
             size="sm"
-            className="w-full bg-safety-yellow hover:bg-safety-yellow/90 text-safety-black font-semibold shadow-md"
-            onClick={(e) => {
-              e.preventDefault();
-              openQuote({
-                productId: product._id,
-                productName: product.name,
-              });
-            }}
+            className="w-full bg-safety-yellow hover:bg-safety-yellow/90 text-safety-black font-semibold shadow-md flex items-center justify-center gap-2"
+            onClick={handleAddToCart}
           >
-            Request Quote
+            <ShoppingCart className="w-4 h-4" />
+            Add to Cart
           </Button>
           <div className="flex gap-2">
             <a
-              href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hello I want quotation for ${product.name}`)}`}
+              href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hello I want a quotation for ${product.name}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 inline-flex items-center justify-center rounded-md border-2 border-[#25D366] bg-[#25D366] px-3 py-2 text-xs font-bold text-white hover:bg-[#20bd5a] hover:border-[#20bd5a] transition-all"
             >
               <MessageCircle className="h-4 w-4 mr-1.5" />
-              WhatsApp Quote
+              Buy Now
             </a>
             {product.datasheetUrl && (
               <a

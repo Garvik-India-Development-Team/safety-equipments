@@ -1,15 +1,16 @@
 "use client";
 
-import { useQuoteStore } from "@/store/quote-store";
+import { useCartStore } from "@/store/quote-store";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
 
 export default function BulkQuotePage() {
-  const openQuote = useQuoteStore((s) => s.open);
+  const openCart = useCartStore((s) => s.open);
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-2">Bulk Quotation</h1>
+      <h1 className="text-3xl font-bold mb-2">Request Cart</h1>
       <p className="text-muted-foreground mb-8 max-w-2xl">
         Need volume pricing or a custom list of products? Submit your requirements and we will
         send you a detailed quote. You can also attach a list of product names or SKUs.
@@ -22,10 +23,11 @@ export default function BulkQuotePage() {
         <Button
           size="lg"
           variant="safety"
-          className="text-safety-black"
-          onClick={() => openQuote()}
+          className="text-safety-black font-semibold flex items-center gap-2"
+          onClick={() => openCart()}
         >
-          Open Quotation Form
+          <ShoppingCart className="w-5 h-5" />
+          Open Request Cart
         </Button>
         <p className="mt-4 text-sm text-muted-foreground">
           Or contact us directly:{" "}

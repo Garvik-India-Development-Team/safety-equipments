@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { SEED_PRODUCTS } from "@/lib/seed-products";
 
 export async function GET(
   _request: Request,
@@ -7,16 +7,12 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    const db = await getDb();
-    const product = await db.collection("products").findOne({ slug });
+    const product = SEED_PRODUCTS.find(p => p.slug === slug);
     if (!product)
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     return NextResponse.json({
       ...product,
-      _id: product._id.toString(),
-      categoryId: product.categoryId?.toString(),
-      subcategoryId: product.subcategoryId?.toString(),
-      brandId: product.brandId?.toString(),
+      _id: product.slug, // Use slug as deterministic ID
     });
   } catch (e) {
     console.error(e);

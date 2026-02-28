@@ -1,24 +1,19 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { SEED_PRODUCTS } from "@/lib/seed-products";
 
 export async function GET() {
   try {
-    const db = await getDb();
-    const slides = await db
-      .collection("hero_slides")
-      .find({})
-      .sort({ order: 1 })
-      .toArray();
-    if (slides.length === 0) {
-      return NextResponse.json({ slides: [] });
-    }
+    // Return an initial slice of 4 static products as featured items
+    const featured = SEED_PRODUCTS.slice(0, 4);
+
     return NextResponse.json({
-      slides: slides.map((s) => ({
-        ...s,
-        _id: s._id.toString(),
+      slides: featured.map((p) => ({
+        ...p,
+        _id: p.slug, // Map slug as deterministic ID
       })),
     });
-  } catch {
-    return NextResponse.json({ slides: [] });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

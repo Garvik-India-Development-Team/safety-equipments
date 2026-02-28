@@ -1,167 +1,122 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useQuoteStore } from "@/store/quote-store";
-import { useState } from "react";
+import { useCartStore } from "@/store/quote-store";
+import { MessageCircle, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
 
-const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  company: z.string().min(1, "Company is required"),
-  phone: z.string().min(1, "Phone is required"),
-  email: z.string().email("Invalid email"),
-  product: z.string().optional(),
-  quantity: z.string().optional(),
-  message: z.string().optional(),
-});
-
-type FormData = z.infer<typeof schema>;
+const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919811048483";
 
 export function QuoteModal() {
-  const { isOpen, close, product } = useQuoteStore();
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const { isOpen, close, items, updateQuantity, removeItem, clearCart } = useCartStore();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      product: product?.productName ?? "",
-    },
-  });
+  const handleCheckout = () => {
+    if (items.length === 0) return;
 
-  const onOpenChange = (open: boolean) => {
-    if (!open) {
-      close();
-      reset();
-      setSubmitStatus("idle");
-    }
-  };
+    let message = `Hello, I would like to request a quotation for the following bulk order:\n\n`;
+    items.forEach((item, index) => {
+      message += `${index + 1}. *${item.productName}*\n`;
+      if (item.sku) message += `   SKU: ${item.sku}\n`;
+      message += `   Quantity: ${item.quantity}\n\n`;
+    });
 
-  const onSubmit = async (data: FormData) => {
-    setSubmitStatus("loading");
-    try {
-      const res = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          company: data.company,
-          phone: data.phone,
-          email: data.email,
-          productId: product?.productId,
-          productName: data.product || product?.productName,
-          quantity: data.quantity,
-          message: data.message,
-          type: product?.productId ? "single" : "bulk",
-        }),
-      });
-      if (!res.ok) throw new Error("Failed");
-      setSubmitStatus("success");
-      setTimeout(() => onOpenChange(false), 1500);
-    } catch {
-      setSubmitStatus("error");
-    }
+    message += `Please let me know the pricing, bulk discounts, and estimated delivery time.`;
+
+    const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+
+    // Optional: Clear cart after successful handoff to WhatsApp
+    // clearCart(); 
+    close();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Request a Quote</DialogTitle>
+          <DialogTitle className="flex items-center gap-2">
+            <ShoppingCart className="w-5 h-5" />
+            Your Request Cart
+          </DialogTitle>
           <DialogDescription>
-            Fill in your details and we will get back to you with pricing and availability.
+            Review the items you want to request a quote for.
           </DialogDescription>
         </DialogHeader>
-        {submitStatus === "success" ? (
-          <p className="py-4 text-center text-green-600">Thank you. We will contact you shortly.</p>
-        ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-2">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name *</Label>
-                <Input id="name" {...register("name")} placeholder="Your name" />
-                {errors.name && (
-                  <p className="text-xs text-destructive">{errors.name.message}</p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="company">Company *</Label>
-                <Input id="company" {...register("company")} placeholder="Company name" />
-                {errors.company && (
-                  <p className="text-xs text-destructive">{errors.company.message}</p>
-                )}
-              </div>
+
+        <div className="py-4 max-h-[60vh] overflow-y-auto pr-2 space-y-4">
+          {items.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground placeholder:">
+              <ShoppingCart className="w-12 h-12 mx-auto mb-3 opacity-20" />
+              <p>Your cart is empty.</p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone *</Label>
-                <Input id="phone" {...register("phone")} placeholder="Phone" />
-                {errors.phone && (
-                  <p className="text-xs text-destructive">{errors.phone.message}</p>
-                )}
+          ) : (
+            items.map((item) => (
+              <div key={item.productId} className="flex gap-4 items-center bg-accent/30 p-3 rounded-lg border border-border">
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-medium text-sm text-foreground truncate">{item.productName}</h4>
+                  {item.sku && <p className="text-xs text-muted-foreground mt-0.5">SKU: {item.sku}</p>}
+                </div>
+
+                <div className="flex items-center gap-2 bg-background border border-border rounded-md px-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-7 w-7 rounded-none"
+                    onClick={() => updateQuantity(item.productId, item.quantity - 1)}
+                    disabled={item.quantity <= 1}
+                  >
+                    <Minus className="w-3 h-3" />
+                  </Button>
+                  <span className="text-xs font-medium w-6 text-center">{item.quantity}</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-7 w-7 rounded-none"
+                    onClick={() => updateQuantity(item.productId, item.quantity + 1)}
+                  >
+                    <Plus className="w-3 h-3" />
+                  </Button>
+                </div>
+
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 text-destructive hover:bg-destructive/10"
+                  onClick={() => removeItem(item.productId)}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email *</Label>
-                <Input id="email" type="email" {...register("email")} placeholder="Email" />
-                {errors.email && (
-                  <p className="text-xs text-destructive">{errors.email.message}</p>
-                )}
-              </div>
-            </div>
-            {product?.productName && (
-              <div className="space-y-2">
-                <Label htmlFor="product">Product</Label>
-                <Input
-                  id="product"
-                  {...register("product")}
-                  defaultValue={product.productName}
-                  readOnly
-                  className="bg-muted"
-                />
-              </div>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="quantity">Quantity</Label>
-              <Input id="quantity" {...register("quantity")} placeholder="e.g. 100 units" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="message">Message</Label>
-              <textarea
-                id="message"
-                {...register("message")}
-                className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                placeholder="Additional requirements or questions"
-              />
-            </div>
-            {submitStatus === "error" && (
-              <p className="text-sm text-destructive">Something went wrong. Please try again.</p>
-            )}
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+            ))
+          )}
+        </div>
+
+        <div className="flex flex-col gap-2 pt-4 border-t border-border">
+          <Button
+            className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold h-12 shadow-lg flex items-center gap-2"
+            onClick={handleCheckout}
+            disabled={items.length === 0}
+          >
+            <MessageCircle className="w-5 h-5" />
+            Send Request via WhatsApp
+          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" className="flex-1" onClick={close}>
+              Continue Browsing
+            </Button>
+            {items.length > 0 && (
+              <Button variant="ghost" className="text-destructive hover:bg-destructive/10" onClick={clearCart}>
+                Clear Cart
               </Button>
-              <Button type="submit" variant="safety" disabled={submitStatus === "loading"}>
-                {submitStatus === "loading" ? "Sending…" : "Submit Request"}
-              </Button>
-            </DialogFooter>
-          </form>
-        )}
+            )}
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );

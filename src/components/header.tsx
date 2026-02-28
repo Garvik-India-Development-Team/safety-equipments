@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useCartStore } from "@/store/quote-store";
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919811048483";
 const PHONE_NUMBER = process.env.NEXT_PUBLIC_PHONE_NUMBER || "+91 9811048483";
@@ -168,39 +169,42 @@ export function Header() {
 
             {/* Right Icons: Cart, Wishlist, Account */}
             <div className="hidden md:flex items-center gap-5">
-              {/* Wishlist */}
-              <Link
-                href="/bulk-quote"
-                className="flex flex-col items-center gap-0.5 group"
+              {/* Wishlist -> Acts as an alternative entry to Cart for now */}
+              <button
+                type="button"
+                onClick={() => useCartStore.getState().open()}
+                className="flex flex-col items-center gap-0.5 group bg-transparent border-none cursor-pointer"
                 title="Wishlist"
               >
                 <div className="relative">
                   <Heart className="h-6 w-6 text-safety-charcoal group-hover:text-safety-neon-orange transition-colors" />
-                  <span className="absolute -top-2 -right-2 bg-safety-neon-orange text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                    0
-                  </span>
                 </div>
                 <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide">
                   Wishlist
                 </span>
-              </Link>
+              </button>
 
               {/* Cart */}
-              <Link
-                href="/bulk-quote"
-                className="flex flex-col items-center gap-0.5 group"
-                title="Cart"
+              <button
+                type="button"
+                onClick={() => useCartStore.getState().open()}
+                className="flex flex-col items-center gap-0.5 group bg-transparent border-none cursor-pointer"
+                title="Request Cart"
               >
                 <div className="relative">
                   <ShoppingCart className="h-6 w-6 text-safety-charcoal group-hover:text-safety-neon-orange transition-colors" />
+                  {/* Read dynamically from the initialized store */}
                   <span className="absolute -top-2 -right-2 bg-safety-neon-orange text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                    0
+                    {(() => {
+                      const items = useCartStore((s) => s.items);
+                      return items.length;
+                    })()}
                   </span>
                 </div>
                 <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide">
                   Cart
                 </span>
-              </Link>
+              </button>
 
               {/* Account */}
               <Link
